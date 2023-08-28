@@ -1,4 +1,6 @@
-/* Reset some default styles */
+$primary-color: #007bff;
+$disabled-color: #ccc;
+
 body,
 h1,
 h2,
@@ -17,7 +19,7 @@ p {
 /* Style for navigation buttons */
 #prevMonth,
 #nextMonth {
-  background-color: #007bff;
+  background-color: $primary-color;
   color: white;
   border: none;
   padding: 5px 10px;
@@ -26,7 +28,7 @@ p {
 
 /* Style for disabled dates */
 .disabled {
-  color: #ccc;
+  color: $disabled-color;
   cursor: not-allowed;
 }
 
@@ -40,7 +42,7 @@ p {
 #dateTable td {
   width: 14.28%; /* Distribute equally among 7 columns */
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid $disabled-color;
   cursor: pointer;
   text-align: center;
 }
@@ -62,13 +64,11 @@ p {
   grid-template-columns: repeat(7, 1fr);
   text-transform: uppercase;
   font-weight: bold;
-  background-color: #f5f5f5;
+  background-color: $disabled-color;
   padding: 5px;
 }
 
 .selected {
-  background-color: #007bff;
+  background-color: $primary-color;
   color: white;
 }
-
-/*# sourceMappingURL=custom.css.map */

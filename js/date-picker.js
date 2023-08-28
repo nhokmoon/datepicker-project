@@ -12,7 +12,13 @@ function populateDates() {
   const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
   const firstDayIndex = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
 
-  const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const locale = document.documentElement.lang;
+
+  let daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  // Add translated day labels for Vietnamese
+  if (locale === "vi-VN") {
+    daysOfWeek = ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"];
+  }
 
   const daysOfWeekRow = document.createElement("tr");
   daysOfWeek.forEach((day) => {
@@ -66,9 +72,10 @@ function populateDates() {
   }
 }
 
-function updateMonthDisplay() {
+function updateMonthDisplay(locale) {
+  console.log(locale);
   const options = { year: "numeric", month: "long" };
-  const monthYearString = currentDate.toLocaleDateString(undefined, options);
+  const monthYearString = currentDate.toLocaleDateString(locale, options);
   currentMonthYearSpan.textContent = monthYearString;
 }
 
@@ -76,38 +83,52 @@ document.addEventListener("DOMContentLoaded", () => {
   populateDates();
   updateMonthDisplay();
 
-  // Event listener for language buttons
-  const languageButtons = document.querySelectorAll(
-    "button[id^='en-'], button[id^='fr-'], button[id^='vi-']"
-  );
-  console.log(languageButtons);
+  const languageButtons = document.querySelectorAll("button[id^='en-'], button[id^='vi-']");
 
   languageButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const locale = button.id; // Use the button's ID as the locale
 
-      document.documentElement.lang = "vn";
-      console.log(locale);
-      const selectedDate = new Date(currentDate);
+      document.documentElement.lang = locale; // Set the document language attribute
 
-      currentDate = selectedDate;
+      // Update day labels and placeholder text
+      let daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]; // Use let instead of const
+      if (locale === "vi-VN") {
+        daysOfWeek = ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"];
+      }
+
+      const dayLabels = document.querySelectorAll("th");
+      dayLabels.forEach((label, index) => {
+        label.textContent = daysOfWeek[index];
+      });
+
+      // Update month display and date table
+      currentDate = new Date();
       populateDates();
-      updateMonthDisplay();
+      updateMonthDisplay(locale);
+
+      if (locale === "vi-VN") {
+        prevMonthButton.textContent = "Tháng trước";
+        nextMonthButton.textContent = "Tháng sau";
+      } else {
+        prevMonthButton.textContent = "Previous";
+        nextMonthButton.textContent = "Next";
+      }
     });
   });
 
   prevMonthButton.addEventListener("click", () => {
     currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
     populateDates();
-    updateMonthDisplay();
+    updateMonthDisplay(document.documentElement.lang);
   });
 
   nextMonthButton.addEventListener("click", () => {
     currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
     populateDates();
-    updateMonthDisplay();
+    updateMonthDisplay(document.documentElement.lang);
   });
 });
 
 populateDates();
-updateMonthDisplay();
+updateMonthDisplay(document.documentElement.lang);

@@ -2,7 +2,7 @@
 <html>
   <head>
     <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/custom.css" />
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
     <div class="date-picker">
@@ -10,12 +10,14 @@
       <span id="currentMonthYear">August 2023</span>
       <button id="nextMonth">Next</button>
       <table id="dateTable">
-        <!-- Days of the week labels will be populated dynamically using JavaScript -->
+        <tr>
+          <th></th>
+          <!-- Add more th elements for day labels -->
+        </tr>
         <!-- Dates will be populated dynamically using JavaScript -->
       </table>
     </div>
     <button id="en-US">English</button>
-    <button id="fr-FR">French</button>
     <button id="vi-VN">Vietnamese</button>
 
     <script src="./js/date-picker.js"></script>
