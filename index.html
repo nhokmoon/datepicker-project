@@ -2,14 +2,25 @@
 <html>
   <head>
     <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/custom.css" />
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <div class="datepicker">
-      <button id="prevMonth">Previous Month</button>
-      <div id="calendar"></div>
-      <button id="nextMonth">Next Month</button>
+    <div class="date-picker">
+      <button id="prevMonth">Previous</button>
+      <span id="currentMonthYear">August 2023</span>
+      <button id="nextMonth">Next</button>
+      <table id="dateTable">
+        <tr>
+          <th></th>
+          <!-- Add more th elements for day labels -->
+        </tr>
+        <!-- Dates will be populated dynamically using JavaScript -->
+      </table>
     </div>
+    <button id="en-US">English</button>
+    <button id="vi-VN">Vietnamese</button>
+
+    <script src="./js/date-picker.js"></script>
 
     <script type="module" src="js/bootstrap.min.js"></script>
   </body>
